@@ -4,10 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Veux-tu être ma Valentine ?</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffe6ee;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      text-align: center;
+      padding: 24px;
+      width: min(520px, 92vw);
+    }
+    h1 {
+      font-size: 2.2em;
+      color: #d32f2f;
+      margin: 0 0 20px 0;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 14px 32px;
+      font-size: 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+    #no {
+      background: #ccc;
+      color: #000;
+    }
+    .hint {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #a66;
+    }
+    #noMessage {
+      margin-top: 14px;
+      font-size: 18px;
+      color: #5a2a33;
+      min-height: 28px;
+    }
+    .gif_container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 18px;
+    }
+    .screenTitle {
+      font-size: 2.4em;
+      margin: 0;
+    }
+    .yesTitle {
+      color: #ff4d6d;
+    }
+    .noTitle {
+      color: #2b2b2b;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="app">
     <h1>Veux-tu être ma Valentine ? 💘</h1>
 
     <div class="buttons">
@@ -17,8 +85,84 @@
 
     <p class="hint">Indice : tu peux cliquer sur “Non”, mais ça sert à quoi 😏</p>
     <p id="noMessage"></p>
+
+    <div class="gif_container">
+      <img
+        src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5lenZyZHI5OXM2eW95b3pmMG40cWVrMDhtNjVuM3A4dGNxa2g2dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VM1fcpu2bKs1e2Kdbj/giphy.gif"
+        alt="GIF mignon">
+    </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const app = document.getElementById("app");
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const noMessage = document.getElementById("noMessage");
+
+    const messages = [
+      "Tu es sûre ? 😳",
+      "Vraiment sûre ? 🤨",
+      "Réfléchis deux secondes 😅",
+      "C’est un non timide ça 😏",
+      "Tu cliques vite quand même 😌",
+
+      "Allez… sois sympa 🥺",
+      "Je fais les yeux mignons 🥹",
+      "Tu ne me facilites pas la tâche 😬",
+      "On peut en discuter calmement 🤝",
+      "Tu sais que tu hésites 😈",
+
+      "Tu me fais un peu de peine 😔",
+      "Mon petit cœur prend cher 💔",
+      "Je commence à douter de toi 😢",
+      "Je pensais que tu étais différente 😶",
+      "Là, ça devient personnel 😐",
+
+      "Ok… je note 🫠",
+      "C’est violent émotionnellement 😭",
+      "Je vais m’allonger par terre 🧎",
+      "Musique triste dans ma tête 🎻",
+      "On frôle le drame là 🎭",
+
+      "Tu es vraiment déterminée 😈",
+      "Tu veux voir jusqu’où ça va 😏",
+      "Encore un clic et je craque 🫣",
+      "Dernière chance. Vraiment 😤",
+      "Ok. Tu l’auras voulu 😈"
+    ];
+
+    let index = 0;
+
+    function showYes() {
+      app.innerHTML = `
+        <h1 class="screenTitle yesTitle">Je le savais 💖</h1>
+        <div class="gif_container">
+          <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif" alt="GIF heureux">
+        </div>
+      `;
+    }
+
+    function showNo() {
+      app.innerHTML = `
+        <h1 class="screenTitle noTitle">Tu as tenu jusqu’au bout 😭</h1>
+        <div class="gif_container">
+          <img src="https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif" alt="GIF triste">
+        </div>
+      `;
+    }
+
+    noBtn.addEventListener("click", () => {
+      if (index < messages.length) {
+        noMessage.textContent = messages[index];
+        index += 1;
+        return;
+      }
+      showNo();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      showYes();
+    });
+  </script>
 </body>
 </html>
