@@ -86,7 +86,6 @@
       color: #2b2b2b;
     }
 
-    /* 🎁 Cadeau */
     .giftWrap {
       margin-top: 20px;
     }
@@ -97,6 +96,7 @@
       border: none;
       cursor: pointer;
       line-height: 1;
+      padding: 6px 10px;
     }
 
     .giftHint {
@@ -145,9 +145,7 @@
     <p id="noMessage"></p>
 
     <div class="gif_container">
-      <img
-        src="https://media1.tenor.com/m/nPqFY2dNUKIAAAAd/baby-yoda-the-mandalorian.gif"
-        alt="GIF mignon">
+      <img src="https://media1.tenor.com/m/nPqFY2dNUKIAAAAd/baby-yoda-the-mandalorian.gif" alt="GIF mignon">
     </div>
   </div>
 
@@ -163,25 +161,21 @@
       "Réfléchis deux secondes 😅",
       "C’est un non timide ça 😏",
       "Tu cliques vite quand même 😌",
-
       "Allez… sois sympa 🥺",
       "Je fais les yeux mignons 🥺",
       "Tu ne me facilites pas la tâche 😬",
       "On peut en discuter calmement 🤝",
       "Tu sais que tu hésites 😈",
-
       "Tu me fais un peu de peine 😔",
       "Mon petit cœur prend cher 💔",
       "Je commence à douter de toi 😢",
       "Je pensais que tu étais différente 😶",
       "Là, ça devient personnel 😐",
-
       "Ok… je note 🫠",
       "C’est violent émotionnellement 😭",
       "Je vais m’allonger par terre 🧎",
       "Musique triste dans ma tête 🎻",
       "On frôle le drame là 🎭",
-
       "Tu es vraiment déterminée 😈",
       "Tu veux voir jusqu’où ça va 😏",
       "Encore un clic et je craque 😳",
@@ -195,15 +189,15 @@
       app.innerHTML = `
         <h1 class="screenTitle yesTitle">Je le savais 💖</h1>
 
-        <div class="gif_container">
-          <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmRnM3d3MGt0MHR5bXp2eW93c3E2MzR5bjJwa3Uxanp1d2NhZWJheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif">
-        </div>
-
         <div class="giftWrap">
           <p class="hint">Voilà un petit cadeau 🎁, clique dessus</p>
           <button class="giftBtn" id="giftBtn" type="button">🎁</button>
           <p class="giftHint">Indice : il y a une proposition dedans 😏</p>
           <div id="giftReveal"></div>
+        </div>
+
+        <div class="gif_container">
+          <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmRnM3d3MGt0MHR5bXp2eW93c3E2MzR5bjJwa3Uxanp1d2NhZWJheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif" alt="GIF heureux">
         </div>
       `;
 
@@ -228,7 +222,7 @@
       app.innerHTML = `
         <h1 class="screenTitle noTitle">Message reçu. C’est non 😭</h1>
         <div class="gif_container">
-          <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExemVzbnhsNXB3c2kxM250YXN6ZWppaTFoN29rbDd2OGJ6ajNsdjU1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4FGGb5MuLHxSGiPK/giphy.gif">
+          <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExemVzbnhsNXB3c2kxM250YXN6ZWppaTFoN29rbDd2OGJ6ajNsdjU1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4FGGb5MuLHxSGiPK/giphy.gif" alt="GIF triste">
         </div>
       `;
     }
@@ -236,7 +230,7 @@
     noBtn.addEventListener("click", () => {
       if (index < messages.length) {
         noMessage.textContent = messages[index];
-        index++;
+        index += 1;
         return;
       }
       showNo();
