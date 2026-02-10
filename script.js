@@ -60,24 +60,47 @@ const messages = [
 let messageIndex = 0;
 let scale = 1;
 
-function moveNoButton() {
+function rectsOverlap(a, b) {
+  return !(
+    a.right <= b.left ||
+    a.left >= b.right ||
+    a.bottom <= b.top ||
+    a.top >= b.bottom
+  );
+}
+
+function moveNoButtonAvoidYes() {
   const zoneRect = buttonsZone.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
+  const yesRect = yesBtn.getBoundingClientRect();
 
-  const maxX = Math.max(0, zoneRect.width - btnRect.width);
-  const maxY = Math.max(0, zoneRect.height - btnRect.height);
+  let tries = 0;
 
-  const x = Math.floor(Math.random() * (maxX + 1));
-  const y = Math.floor(Math.random() * (maxY + 1));
+  while (tries < 25) {
+    const btnRect = noBtn.getBoundingClientRect();
 
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
+    const maxX = Math.max(0, zoneRect.width - btnRect.width);
+    const maxY = Math.max(0, zoneRect.height - btnRect.height);
+
+    const x = Math.floor(Math.random() * (maxX + 1));
+    const y = Math.floor(Math.random() * (maxY + 1));
+
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+
+    const newNoRect = noBtn.getBoundingClientRect();
+
+    if (!rectsOverlap(newNoRect, yesRect)) {
+      return;
+    }
+
+    tries += 1;
+  }
 }
 
 function growYesControlled(step) {
-  const maxScale = 2.2;
-  const minInc = 0.01;
-  const maxInc = 0.08;
+  const maxScale = 2.1;
+  const minInc = 0.008;
+  const maxInc = 0.05;
 
   const t = Math.min(step / (messages.length - 1), 1);
   const inc = maxInc - (maxInc - minInc) * t;
@@ -90,8 +113,10 @@ noBtn.addEventListener("click", () => {
   if (hint) hint.classList.add("hidden");
 
   noBtn.textContent = messages[messageIndex];
+
   growYesControlled(messageIndex);
-  moveNoButton();
+
+  moveNoButtonAvoidYes();
 
   messageIndex += 1;
 
