@@ -1,131 +1,56 @@
 const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
-const result = document.getElementById("result");
-const buttonsZone = document.querySelector(".buttons");
-const hint = document.getElementById("hint");
+const noMessage = document.getElementById("noMessage");
 
 const messages = [
-  "Non ? 😳",
-  "Tu es sûre ? 🤨",
-  "Sûre sûre ? 😅",
-  "Réfléchis 2 secondes 🙏",
-  "Allez… 🥺",
-  "S’il te plaît 😭",
-  "Je suis gentil 😇",
-  "Tu me fais ça 😔",
-  "Tu joues dur 😤",
-  "On peut en parler 🤝",
-  "Regarde le bouton Oui 😏",
-  "Il a l’air sympa 😌",
-  "Tu as envie, avoue 😈",
-  "Stop le suspense 😵",
-  "Tu abuses 😵‍💫",
-  "Je vais bouder 😠",
-  "Boude officiel 😾",
-  "Je suis triste 😿",
-  "Triste niveau 2 🫠",
-  "Triste niveau 3 😩",
-  "Ok, drama 🎭",
-  "Je tombe à genoux 🧎",
-  "Musique triste 🎻",
-  "Je fais le mignon 🐶",
-  "Tu craques quand ? ⏳",
-  "Encore un non ? 😧",
-  "C’est cruel 🥶",
-  "Mais j’insiste 😬",
-  "C’est important 💌",
-  "Je te laisse une chance 🎟️",
-  "Une vraie 😇",
-  "Promis la dernière 🤞",
-  "Bon, j’ai menti 😅",
-  "Tu es forte 💪",
-  "Je respecte 🫡",
-  "Mais je ne lâche pas 😤",
-  "Ok, phase finale 🚨",
-  "Tu vas perdre 😈",
-  "Je vais gagner 😎",
-  "Allez… maintenant 🫣",
-  "On y est 😳",
-  "Tu sens la pression ? 😬",
-  "Dernière ligne droite 🏁",
-  "Tu trembles ? 🫨",
-  "Encore 5… 😵",
-  "Encore 4… 😖",
-  "Encore 3… 😣",
-  "Encore 2… 😫",
-  "Encore 1… 😭",
+  // Palier 1 – Taquin
+  "Tu es sûre ? 😳",
+  "Vraiment sûre ? 🤨",
+  "Réfléchis deux secondes 😅",
+  "C’est un non timide ça 😏",
+  "Tu cliques vite quand même 😌",
+
+  // Palier 2 – Insistant
+  "Allez… sois sympa 🥺",
+  "Je fais les yeux mignons 🥹",
+  "Tu ne me facilites pas la tâche 😬",
+  "On peut en discuter calmement 🤝",
+  "Tu sais que tu hésites 😈",
+
+  // Palier 3 – Culpabilisation
+  "Tu me fais un peu de peine 😔",
+  "Mon petit cœur prend cher 💔",
+  "Je commence à douter de toi 😢",
+  "Je pensais que tu étais différente 😶",
+  "Là, ça devient personnel 😐",
+
+  // Palier 4 – Dramatique
+  "Ok… je note 🫠",
+  "C’est violent émotionnellement 😭",
+  "Je vais m’allonger par terre 🧎",
+  "Musique triste dans ma tête 🎻",
+  "On frôle le drame là 🎭",
+
+  // Palier 5 – Ultimatum
+  "Tu es vraiment déterminée 😈",
+  "Tu veux voir jusqu’où ça va 😏",
+  "Encore un clic et je craque 🫣",
+  "Dernière chance. Vraiment 😤",
   "Ok. Tu l’auras voulu 😈"
 ];
 
-let messageIndex = 0;
-let scale = 1;
-
-function rectsOverlap(a, b) {
-  return !(
-    a.right <= b.left ||
-    a.left >= b.right ||
-    a.bottom <= b.top ||
-    a.top >= b.bottom
-  );
-}
-
-function moveNoButtonAvoidYes() {
-  const zoneRect = buttonsZone.getBoundingClientRect();
-  const yesRect = yesBtn.getBoundingClientRect();
-
-  let tries = 0;
-
-  while (tries < 25) {
-    const btnRect = noBtn.getBoundingClientRect();
-
-    const maxX = Math.max(0, zoneRect.width - btnRect.width);
-    const maxY = Math.max(0, zoneRect.height - btnRect.height);
-
-    const x = Math.floor(Math.random() * (maxX + 1));
-    const y = Math.floor(Math.random() * (maxY + 1));
-
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
-
-    const newNoRect = noBtn.getBoundingClientRect();
-
-    if (!rectsOverlap(newNoRect, yesRect)) {
-      return;
-    }
-
-    tries += 1;
-  }
-}
-
-function growYesControlled(step) {
-  const maxScale = 2.1;
-  const minInc = 0.008;
-  const maxInc = 0.05;
-
-  const t = Math.min(step / (messages.length - 1), 1);
-  const inc = maxInc - (maxInc - minInc) * t;
-
-  scale = Math.min(scale + inc, maxScale);
-  yesBtn.style.transform = `scale(${scale})`;
-}
+let index = 0;
 
 noBtn.addEventListener("click", () => {
-  if (hint) hint.classList.add("hidden");
-
-  noBtn.textContent = messages[messageIndex];
-
-  growYesControlled(messageIndex);
-
-  moveNoButtonAvoidYes();
-
-  messageIndex += 1;
-
-  if (messageIndex >= messages.length) {
-    window.location.href = "no_page.html";
+  // Tant qu’il reste des messages
+  if (index < messages.length) {
+    noMessage.textContent = messages[index];
+    index++;
     return;
   }
 
-  result.textContent = "";
+  // Dès qu’on dépasse le 25e
+  window.location.href = "no_page.html";
 });
 
 yesBtn.addEventListener("click", () => {
