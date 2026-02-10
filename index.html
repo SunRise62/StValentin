@@ -183,35 +183,46 @@
       "Ok. Tu l’auras voulu 😈"
     ];
 
+    const yesScreenHtml = `
+      <h1 class="screenTitle yesTitle">Je le savais 💖</h1>
+
+      <div class="giftWrap">
+        <p class="hint">Voilà un petit cadeau 🎁, clique dessus</p>
+        <button class="giftBtn" id="giftBtn" type="button">🎁</button>
+        <p class="giftHint">Indice : il y a une proposition dedans 😏</p>
+        <div id="giftReveal"></div>
+      </div>
+
+      <div class="gif_container">
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmRnM3d3MGt0MHR5bXp2eW93c3E2MzR5bjJwa3Uxanp1d2NhZWJheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif" alt="GIF heureux">
+      </div>
+    `;
+
+    const noScreenHtml = `
+      <h1 class="screenTitle noTitle">Message reçu. C’est non 😭</h1>
+      <div class="gif_container">
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExemVzbnhsNXB3c2kxM250YXN6ZWppaTFoN29rbDd2OGJ6ajNsdjU1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4FGGb5MuLHxSGiPK/giphy.gif" alt="GIF triste">
+      </div>
+    `;
+
+    const giftRevealHtml = `
+      <div class="revealBox">
+        Et si on se voyait entre le <strong>21 février</strong> et le <strong>9 mars</strong> pour fêter ça ? 😊
+        <br><br>
+        <strong>NB :</strong> dis-moi la ou les dates que tu choisis pour qu’on s’organise
+      </div>
+    `;
+
     let index = 0;
 
     function showYes() {
-      app.innerHTML = `
-        <h1 class="screenTitle yesTitle">Je le savais 💖</h1>
-
-        <div class="giftWrap">
-          <p class="hint">Voilà un petit cadeau 🎁, clique dessus</p>
-          <button class="giftBtn" id="giftBtn" type="button">🎁</button>
-          <p class="giftHint">Indice : il y a une proposition dedans 😏</p>
-          <div id="giftReveal"></div>
-        </div>
-
-        <div class="gif_container">
-          <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmRnM3d3MGt0MHR5bXp2eW93c3E2MzR5bjJwa3Uxanp1d2NhZWJheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif" alt="GIF heureux">
-        </div>
-      `;
+      app.innerHTML = yesScreenHtml;
 
       const giftBtn = document.getElementById("giftBtn");
       const giftReveal = document.getElementById("giftReveal");
 
       giftBtn.addEventListener("click", () => {
-        giftReveal.innerHTML = `
-          <div class="revealBox">
-            Et si on se voyait entre le <strong>21 février</strong> et le <strong>9 mars</strong> pour fêter ça ? 😊
-            <br><br>
-            <strong>NB :</strong> dis-moi la ou les dates que tu choisis pour qu’on s’organise
-          </div>
-        `;
+        giftReveal.innerHTML = giftRevealHtml;
         giftBtn.disabled = true;
         giftBtn.style.opacity = "0.7";
         giftBtn.style.cursor = "default";
@@ -219,26 +230,22 @@
     }
 
     function showNo() {
-      app.innerHTML = `
-        <h1 class="screenTitle noTitle">Message reçu. C’est non 😭</h1>
-        <div class="gif_container">
-          <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExemVzbnhsNXB3c2kxM250YXN6ZWppaTFoN29rbDd2OGJ6ajNsdjU1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4FGGb5MuLHxSGiPK/giphy.gif" alt="GIF triste">
-        </div>
-      `;
+      app.innerHTML = noScreenHtml;
     }
 
-    noBtn.addEventListener("click", () => {
-      if (index < messages.length) {
-        noMessage.textContent = messages[index];
+    function handleNoClick() {
+      const message = messages[index];
+      if (message !== undefined) {
+        noMessage.textContent = message;
         index += 1;
         return;
       }
-      showNo();
-    });
 
-    yesBtn.addEventListener("click", () => {
-      showYes();
-    });
+      showNo();
+    }
+
+    noBtn.addEventListener("click", handleNoClick);
+    yesBtn.addEventListener("click", showYes);
   </script>
 </body>
 </html>
