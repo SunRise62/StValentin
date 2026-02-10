@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Veux-tu être ma Valentine ?</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,22 +15,26 @@
       justify-content: center;
       align-items: center;
     }
+
     .container {
       text-align: center;
       padding: 24px;
       width: min(520px, 92vw);
     }
+
     h1 {
       font-size: 2.2em;
       color: #d32f2f;
       margin: 0 0 20px 0;
     }
+
     .buttons {
       display: flex;
       justify-content: center;
       gap: 16px;
       margin-top: 10px;
     }
+
     button {
       padding: 14px 32px;
       font-size: 20px;
@@ -37,43 +42,68 @@
       border-radius: 8px;
       cursor: pointer;
     }
+
     #yes {
       background: #ff4d6d;
       color: white;
     }
+
     #no {
       background: #ccc;
       color: #000;
     }
+
     .hint {
       margin-top: 14px;
       font-size: 14px;
       color: #a66;
     }
+
     #noMessage {
       margin-top: 14px;
       font-size: 18px;
       color: #5a2a33;
       min-height: 28px;
     }
+
     .gif_container img {
       max-width: 100%;
       height: auto;
       border-radius: 10px;
       margin-top: 18px;
     }
+
     .screenTitle {
       font-size: 2.4em;
       margin: 0;
     }
+
     .yesTitle {
       color: #ff4d6d;
     }
+
     .noTitle {
       color: #2b2b2b;
     }
+
+    @media (max-width: 360px) {
+      .buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      button {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      h1 {
+        font-size: 1.9em;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="container" id="app">
     <h1>Veux-tu être ma Valentine ? 💘</h1>
@@ -137,7 +167,7 @@
       app.innerHTML = `
         <h1 class="screenTitle yesTitle">Je le savais 💖</h1>
         <div class="gif_container">
-          <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif" alt="GIF heureux">
+          <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif">
         </div>
       `;
     }
@@ -146,7 +176,7 @@
       app.innerHTML = `
         <h1 class="screenTitle noTitle">Tu as tenu jusqu’au bout 😭</h1>
         <div class="gif_container">
-          <img src="https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif" alt="GIF triste">
+          <img src="https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif">
         </div>
       `;
     }
@@ -154,7 +184,7 @@
     noBtn.addEventListener("click", () => {
       if (index < messages.length) {
         noMessage.textContent = messages[index];
-        index += 1;
+        index++;
         return;
       }
       showNo();
