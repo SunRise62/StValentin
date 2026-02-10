@@ -11,4 +11,75 @@ body {
 .container {
   text-align: center;
   width: min(520px, 92vw);
-  pad
+  padding: 24px;
+}
+
+h1 {
+  font-size: 2.2em;
+  color: #d32f2f;
+  margin: 0;
+}
+
+.buttons {
+  margin-top: 20px;
+  position: relative;
+  width: min(420px, 92vw);
+  height: 140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  transition: transform 180ms ease, left 180ms ease, top 180ms ease;
+  white-space: nowrap;
+}
+
+#yes,
+#no {
+  position: absolute;
+  top: 0;
+}
+
+#yes {
+  left: 0;
+  background: #ff4d6d;
+  color: white;
+  z-index: 2;
+  transform-origin: center;
+}
+
+#no {
+  left: 200px;
+  background: #ccc;
+  z-index: 1;
+}
+
+#hint {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #a66;
+  opacity: 0.85;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+#hint.hidden {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.gif_container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+#result {
+  margin-top: 16px;
+  font-size: 18px;
+}
