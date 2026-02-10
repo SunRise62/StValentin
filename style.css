@@ -47,6 +47,19 @@ button {
   top: 0;
 }
 
+#hint {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #a66;
+  opacity: 0.85;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+#hint.hidden {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
 .gif_container img {
   max-width: 100%;
   height: auto;
