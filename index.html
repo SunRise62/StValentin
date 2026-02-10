@@ -86,6 +86,34 @@
       color: #2b2b2b;
     }
 
+    /* 🎁 Cadeau */
+    .giftWrap {
+      margin-top: 20px;
+    }
+
+    .giftBtn {
+      font-size: 46px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .giftHint {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #a66;
+    }
+
+    .revealBox {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(255, 77, 109, 0.12);
+      color: #5a2a33;
+      font-size: 18px;
+    }
+
     @media (max-width: 360px) {
       .buttons {
         flex-direction: column;
@@ -166,10 +194,34 @@
     function showYes() {
       app.innerHTML = `
         <h1 class="screenTitle yesTitle">Je le savais 💖</h1>
+
         <div class="gif_container">
           <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmRnM3d3MGt0MHR5bXp2eW93c3E2MzR5bjJwa3Uxanp1d2NhZWJheCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif">
         </div>
+
+        <div class="giftWrap">
+          <p class="hint">Voilà un petit cadeau 🎁, clique dessus</p>
+          <button class="giftBtn" id="giftBtn" type="button">🎁</button>
+          <p class="giftHint">Indice : il y a une proposition dedans 😏</p>
+          <div id="giftReveal"></div>
+        </div>
       `;
+
+      const giftBtn = document.getElementById("giftBtn");
+      const giftReveal = document.getElementById("giftReveal");
+
+      giftBtn.addEventListener("click", () => {
+        giftReveal.innerHTML = `
+          <div class="revealBox">
+            Et si on se voyait entre le <strong>21 février</strong> et le <strong>9 mars</strong> pour fêter ça ? 😊
+            <br><br>
+            <strong>NB :</strong> dis-moi la ou les dates que tu choisis pour qu’on s’organise
+          </div>
+        `;
+        giftBtn.disabled = true;
+        giftBtn.style.opacity = "0.7";
+        giftBtn.style.cursor = "default";
+      });
     }
 
     function showNo() {
