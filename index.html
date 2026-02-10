@@ -203,6 +203,9 @@
       <div class="gif_container">
         <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExemVzbnhsNXB3c2kxM250YXN6ZWppaTFoN29rbDd2OGJ6ajNsdjU1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4FGGb5MuLHxSGiPK/giphy.gif" alt="GIF triste">
       </div>
+      <div style="margin-top: 20px;">
+        <button id="restartBtn" type="button">Rien n’est jamais définitif… y repenser 🔄</button>
+      </div>
     `;
 
     const giftRevealHtml = `
@@ -231,6 +234,11 @@
 
     function showNo() {
       app.innerHTML = noScreenHtml;
+
+      const restartBtn = document.getElementById("restartBtn");
+      restartBtn.addEventListener("click", () => {
+        window.location.reload();
+      });
     }
 
     function handleNoClick() {
